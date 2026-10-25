@@ -6,7 +6,7 @@ Colección de skills listas para instalar en Claude. Cada skill le enseña a Cla
 
 | Skill | Qué hace | Descargar |
 |---|---|---|
-| **[editor-video-hyperframes](editor-video-hyperframes/)** | Quita silencios y pausas de videos hablados, transcribe en español y agrega subtítulos (simples o animados). Entrega MP4 + .srt. | [⬇️ .zip](descargas/editor-video-hyperframes.zip?raw=1) |
+| **[editor-video-hyperframes](editor-video-hyperframes/)** | Quita silencios y pausas de videos hablados, transcribe en español y agrega subtítulos (simples o animados). Entrega MP4 + .srt. Instala sola las skills oficiales de HyperFrames. | [⬇️ .zip](descargas/editor-video-hyperframes.zip?raw=1) |
 
 ## Cómo instalar una skill
 

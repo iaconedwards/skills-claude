@@ -35,10 +35,12 @@ Instala la skill. Tienes dos caminos:
 - **Si no la subiste:** descomprime el .zip y copia la carpeta `editor-video-hyperframes` dentro de `~/.claude/skills/`.
   - En Mac/Linux, la ruta completa queda así: `~/.claude/skills/editor-video-hyperframes/SKILL.md`.
 
-Opcional (recomendado): instala también las skills oficiales de HyperFrames:
+**No necesitas instalar nada más.** La primera vez que uses la skill, Claude instala solo las 4 skills oficiales de HyperFrames (`hyperframes`, `hyperframes-cli`, `hyperframes-registry` y `media-use`).
+
+Si prefieres dejarlas instaladas desde antes, ejecuta:
 
 ```bash
-npx -y skills add heygen-com/hyperframes
+npx -y skills add heygen-com/hyperframes -g -y -a claude-code -s hyperframes hyperframes-cli hyperframes-registry media-use
 ```
 
 ---

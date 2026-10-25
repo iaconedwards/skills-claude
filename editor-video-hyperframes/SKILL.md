@@ -36,8 +36,35 @@ node -v
   npx -y hyperframes --help
   npx -y hyperframes doctor
   ```
-- Si las skills oficiales de HyperFrames están instaladas (`hyperframes`, `hyperframes-media`), léelas antes de los pasos 4 y 5B: tienen las reglas más actuales.
 - **Los flags del CLI de HyperFrames cambian entre versiones**: confírmalos siempre con `npx hyperframes <comando> --help`; no los supongas.
+
+### 1.1 Instalar las skills oficiales de HyperFrames (automático, la primera vez)
+
+Esta skill se apoya en 4 skills oficiales de HeyGen. Revisa si ya están:
+
+```bash
+ls ~/.claude/skills/ 2>/dev/null | grep -E "^(hyperframes|hyperframes-cli|hyperframes-registry|media-use)$"
+```
+
+Si falta alguna, instálalas sin preguntar (son gratuitas y oficiales), a nivel usuario para que sirvan en cualquier proyecto:
+
+```bash
+npx -y skills add heygen-com/hyperframes -g -y -a claude-code \
+  -s hyperframes hyperframes-cli hyperframes-registry media-use
+```
+
+| Skill oficial | Para qué la usa esta skill |
+|---|---|
+| `hyperframes` | Reglas de composición y render; guía de captions en `references/captions.md` y estilos listos en `assets/frame-presets/*/caption-skin.html` |
+| `hyperframes-cli` | Comandos `init`, `lint`, `preview`, `render` y cómo recuperarse de errores |
+| `hyperframes-registry` | ~450 bloques listos (títulos, transiciones, captions animados) vía `npx hyperframes add` |
+| `media-use` | Transcripción con Whisper (`audio/references/transcribe.md`), captions (`audio/references/captions/`), música, efectos y color |
+
+- Recién instaladas no aparecen como comandos hasta la siguiente sesión, pero **sí puedes leer sus archivos de inmediato**: abre los `SKILL.md` y las referencias indicadas en la tabla cuando llegues a los pasos 4 y 5B.
+- Si el usuario pide **todas** las skills oficiales (incluye `figma`, `slideshow` y `remotion-to-hyperframes`), cambia la lista de `-s` por `-s '*'`.
+- Para actualizarlas más adelante: `npx -y skills update -g -y`.
+- **En claude.ai (chat web/escritorio)** este comando instala en un entorno temporal: no aparecerán en la lista de skills del usuario, pero los archivos quedan en `~/.claude/skills/` durante la sesión y puedes leerlos igual. Si el comando falla por red, sigue con esta skill sola; todos los pasos funcionan sin ellas.
+- Nombres viejos: si ves `hyperframes-media` en documentación antigua, hoy se llama `media-use`.
 
 ## 2. Normalizar el video
 
@@ -78,7 +105,7 @@ Ajuste fino (se puede combinar con `--modo`): `--umbral -28dB --min-silencio 0.4
 
 Transcribe **el video ya editado**, no el original, para que los subtítulos coincidan.
 
-Opción principal, HyperFrames:
+Opción principal, HyperFrames (antes, lee `~/.claude/skills/media-use/audio/references/transcribe.md` si está instalada: tiene las reglas de modelo e idioma vigentes):
 
 ```bash
 npx hyperframes transcribe --help
@@ -120,7 +147,7 @@ ffmpeg -y -i trabajo/editado.mp4 -vf "subtitles=trabajo/subtitulos.srt:force_sty
 
 ### 5B. Animados palabra por palabra (HyperFrames)
 
-1. Lee la skill `hyperframes` / `hyperframes-media` si está instalada (captions: estilos, agrupado de palabras, karaoke, resaltado).
+1. Lee `~/.claude/skills/hyperframes/references/captions.md` y `~/.claude/skills/media-use/audio/references/captions/` (estilos, agrupado de palabras, karaoke, resaltado). Para un look rápido, parte de un estilo de `~/.claude/skills/hyperframes/assets/frame-presets/*/caption-skin.html`, o busca un bloque de captions en `hyperframes-registry`.
 2. Crea el proyecto con el video ya editado:
    ```bash
    npx hyperframes init proyecto-video --example blank --video trabajo/editado.mp4
